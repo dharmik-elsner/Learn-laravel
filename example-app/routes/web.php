@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Middleware\RoleBasedMiddleware;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +18,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware(RoleBasedMiddleware::class);
+
+Route::get('/homeofbuyer', function () {
+    return view('homeofbuyer');
+})->name('buyer.dashboard')->middleware(RoleBasedMiddleware::class);
+
+Route::get('/homeofseller', function () {
+    return view('homeofseller');
+})->name('seller.dashboard')->middleware(RoleBasedMiddleware::class);   
+

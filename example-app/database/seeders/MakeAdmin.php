@@ -1,0 +1,25 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+
+class MakeAdmin extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        //
+        User::create([
+            'name' => 'Dharmik_Admin',
+            'email' => 'admin@elsner.com',
+            'role' => 'Admin',
+            'password' => Hash::make('Admin@123'),
+        ]);
+    }
+}
