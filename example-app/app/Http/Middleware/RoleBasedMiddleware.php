@@ -35,7 +35,6 @@ class RoleBasedMiddleware
             return Redirect::route($expectedRoute)
                 ->with('error', "You don't have access to this page.");
         }
-
         return $next($request);
     }
 }

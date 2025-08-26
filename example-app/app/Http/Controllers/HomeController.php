@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $data = User::where('role', '!=', 'Admin')->get();
+        return view('home', ['data' => $data]);
+    }
+
+    public function buyer()
+    {
+        return view('homeofbuyer');
+    }
+
+    public function seller()
+    {
+        return view('homeofseller');
     }
 }
