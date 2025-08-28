@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.myapp')
 
 @section('content')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">

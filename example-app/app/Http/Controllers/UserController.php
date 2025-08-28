@@ -9,7 +9,18 @@ use App\Models\User;
 class UserController extends Controller
 {
     //
-    
+    public function __construct()
+    {
+       $this->middleware('auth');
+    }
+
+    public function viewUsers()
+    {
+        $data = User::where('role', '!=', 'Admin')->get();
+        return view('view_data_admin', ['data' => $data]);
+    }
+
+
     public function destroy($id)
     {
         $user = User::find($id);

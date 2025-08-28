@@ -24,8 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data = User::where('role', '!=', 'Admin')->get();
-        return view('home', ['data' => $data]);
+        return view('homeofadmin');
     }
 
     public function buyer()
