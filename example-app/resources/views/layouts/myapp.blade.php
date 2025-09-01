@@ -74,8 +74,15 @@
                 </div>
             </div>
         </nav>
-            @include('layouts.sidebar')
-
+            @if(Auth::user()->role=== 'Admin')
+                @include('layouts.admin-sidebar')
+            @elseif(Auth::user()->role=== 'Seller')
+                @include('layouts.seller-sidebar')
+            @elseif(Auth::user()->role=== 'Buyer')
+                @include('layouts.buyer-sidebar')
+            @else
+                <!-- No sidebar for users without a specific role -->
+            @endif
         <main class="py-4">
             @yield('content')
         </main>

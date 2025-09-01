@@ -11,7 +11,12 @@ class UserController extends Controller
     //
     public function __construct()
     {
-       $this->middleware('auth');
+        $this->middleware(function ($request, $next) {
+            if (auth()->user()->role !== 'Admin') {
+                abort(403, 'Unauthorized');
+            }
+            return $next($request);
+        });
     }
 
     public function viewUsers()
@@ -32,7 +37,7 @@ class UserController extends Controller
             return redirect()->route('home')->with('error', 'Cannot delete Admin users.');
         }
         User::findOrFail($id)->delete();
-        return redirect()->route('home')->with('success', 'User deleted successfully.');
+        return redirect()->route('view.users')->with('success', 'User deleted successfully.');
     }
 
     public function updatePage($id)
@@ -55,7 +60,7 @@ class UserController extends Controller
         }
         
         $user->update($request->all());
-        return redirect()->route('home')->with('success', 'User updated successfully.');
+        return redirect()->route('view.users')->with('success', 'User updated successfully.');
     }
 
 }

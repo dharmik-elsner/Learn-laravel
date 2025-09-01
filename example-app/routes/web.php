@@ -36,6 +36,7 @@ Route::get('User/{id}/edit', [App\Http\Controllers\UserController::class, 'updat
 
 Route::post('/update', [App\Http\Controllers\UserController::class, 'update'])->name('user.update');
 
-Route::get('/temp', function(){
-    return view('layouts.app');
-});
+Route::get('/save-website', [App\Http\Controllers\SellerController::class, 'saveWebsite'])->name('save.website');
+
+
+Route::get('/add-website', [App\Http\Controllers\SellerController::class, 'formtoaddwebsite'])->name('form.add.website');

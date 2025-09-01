@@ -2,9 +2,8 @@
     <ul>
         <li><a href="{{ route('home') }}">🏠 Home</a></li>
         <li><a href="{{ route('view.users') }}">users Dashboard</a></li>
-        <li><a href="{{ route('home') }}">🛒 shop change Dashboard</a></li>
-        <li><a href="{{ route('home') }}">For Example  Dashboard</a></li>
-        @if(Auth::check() && Auth::user()->role === 'admin')
+        <li><a href="{{ route('form.add.website') }}">Selling Website form</a></li>
+        @if(Auth::check() && Auth::user()->role === 'Admin')
             <li><a href="#">⚙️ Admin Panel</a></li>
         @endif
     </ul>

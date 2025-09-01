@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.myapp')
 
 @section('content')
 <div class="container">
@@ -14,6 +14,12 @@
                         </div>
                     @endif
                     {{ __('Seller logged in!') }}
+                    <p>Welcome to your dashboard, {{ Auth::user()->name }}!</p>
+                </div>
+                <div class="card-body" style="border-top: 2px solid #eee;">
+                    <a class="btn btn-primary" href="{{ route('form.add.website') }}">Add Website</a>
+                    <br>
+                    <p>click the button to add website!!</p>
                 </div>
             </div>
         </div>
