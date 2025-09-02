@@ -12,7 +12,11 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-            if (auth()->user()->role !== 'Admin') {
+            $user = auth()->user();
+            if(!$user){
+                return redirect()->route('login');
+            }
+            if ($user   ->role !== 'Admin') {
                 abort(403, 'Unauthorized');
             }
             return $next($request);
@@ -21,7 +25,7 @@ class UserController extends Controller
 
     public function viewUsers()
     {
-        $data = User::where('role', '!=', 'Admin')->get();
+        $data = User::where('role', '!=', 'Admin')->whereNull('deleted_at')->get();
         return view('view_data_admin', ['data' => $data]);
     }
 
@@ -36,7 +40,8 @@ class UserController extends Controller
         if ($user->role === 'Admin') {
             return redirect()->route('view.users')->with('error', 'Cannot delete Admin users.');
         }
-        User::findOrFail($id)->delete();
+        $user->deleted_at = now();
+        $user->save();
         return redirect()->route('view.users')->with('success', 'User deleted successfully.');
     }
 

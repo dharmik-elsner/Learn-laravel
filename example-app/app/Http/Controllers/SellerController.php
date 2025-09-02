@@ -11,6 +11,11 @@ class SellerController extends Controller
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
+            $user = auth()->user();
+            if(!$user){
+                return redirect()->route('login');
+            }
+
             if (auth()->user()->role !== 'Seller') {
                 abort(403, 'Unauthorized');
             }
@@ -62,7 +67,7 @@ class SellerController extends Controller
     public function viewWebsites()
     {
         $userId = auth()->id();
-        $websites = sellerWebsiteData::where('user_id', $userId)->get();
+        $websites = sellerWebsiteData::where('user_id', $userId)->whereNull('deleted_at')->get();
         return view('view_data_seller', compact('websites'));
     }
 
@@ -85,7 +90,8 @@ class SellerController extends Controller
         if (!$website) {
             return redirect()->route('view.websites')->with('error', 'Website not found.');
         }
-        sellerWebsiteData::findOrFail($id)->delete();
+        $website->deleted_at = now();
+        $website->save();
         return redirect()->route('view.websites')->with('success', 'Website deleted successfully.');
     }
 
