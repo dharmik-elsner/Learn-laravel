@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\sellerWebsiteData;
 
 class SellerController extends Controller
 {
-    //
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
@@ -38,10 +38,55 @@ class SellerController extends Controller
             'fc_link' => 'nullable|integer|min:1',
         ]);
         
+        $userId = auth()->id();
 
-        // Process the validated data (e.g., save to the database)
+        sellerWebsiteData::create([
+            'user_id' => $userId,
+            'website_name' => $validated['website_name'],
+            'da_score' => $validated['da_score'],
+            'publishing_time' => $validated['publishing_time'],
+            'example_website_name' => $validated['example_website_name'],
+            'category' => $validated['category'],
+            'normal_guest_price' => $validated['normal_guest'],
+            'normal_link_price' => $validated['normal_link'],
+            'fc_guest_price' => $validated['fc_guest'],
+            'fc_link_price' => $validated['fc_link'],
+        ]);
 
-        return redirect()->route('home')->with('success', 'Website added successfully.');
+        if($request->input('bool')){
+            return redirect()->route('view.websites')->with('success', 'Website updated successfully.');
+        }
+        return redirect()->route('view.websites')->with('success', 'Website added successfully.');
+    }
+
+    public function viewWebsites()
+    {
+        $userId = auth()->id();
+        $websites = sellerWebsiteData::where('user_id', $userId)->get();
+        return view('view_data_seller', compact('websites'));
+    }
+
+
+    public function edit($id)
+    {
+        $website = sellerWebsiteData::find($id);
+
+        if (!$website) {
+            return redirect()->route('view.websites')->with('error', 'Website not found.');
+        }
+
+        return view('addwebsite', compact('website'));
+    }
+
+    public function destroy($id)
+    {
+        $website = sellerWebsiteData::find($id);
+
+        if (!$website) {
+            return redirect()->route('view.websites')->with('error', 'Website not found.');
+        }
+        sellerWebsiteData::findOrFail($id)->delete();
+        return redirect()->route('view.websites')->with('success', 'Website deleted successfully.');
     }
 
 }

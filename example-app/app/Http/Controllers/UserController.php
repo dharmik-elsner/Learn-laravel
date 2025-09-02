@@ -31,10 +31,10 @@ class UserController extends Controller
         $user = User::find($id);
 
         if (!$user) {
-            return redirect()->route('home')->with('error', 'User not found.');
+            return redirect()->route('view.users')->with('error', 'User not found.');
         }
         if ($user->role === 'Admin') {
-            return redirect()->route('home')->with('error', 'Cannot delete Admin users.');
+            return redirect()->route('view.users')->with('error', 'Cannot delete Admin users.');
         }
         User::findOrFail($id)->delete();
         return redirect()->route('view.users')->with('success', 'User deleted successfully.');
@@ -46,7 +46,7 @@ class UserController extends Controller
         $user = User::find($id);
 
         if (!$user) {
-            return redirect()->route('home')->with('error', 'User not found.');
+            return redirect()->route('view.users')->with('error', 'User not found.');
         }
 
         return view('update', ['data' => $user]);
@@ -56,7 +56,7 @@ class UserController extends Controller
     {
         $user = User::find($request->id);
         if (!$user) {
-            return redirect()->route('home')->with('error', 'User not found.');
+            return redirect()->route('view.users')->with('error', 'User not found.');
         }
         
         $user->update($request->all());

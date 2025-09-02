@@ -1,10 +1,10 @@
 <div id="sidebar">
     <ul>
         <li><a href="{{ route('home') }}">🏠 Home</a></li>
-        <li><a href="{{ route('view.users') }}">users Dashboard</a></li>
+        <li><a href="{{ route('view.websites') }}">Dashboard to maintain website data</a></li>
         <li><a href="{{ route('form.add.website') }}">Selling Website form</a></li>
-        @if(Auth::check() && Auth::user()->role === 'Admin')
-            <li><a href="#">⚙️ Admin Panel</a></li>
+        @if(Auth::check() && Auth::user()->role === 'Seller')
+            <li><a href="#">⚙️ Seller Panel</a></li>
         @endif
     </ul>
 </div>

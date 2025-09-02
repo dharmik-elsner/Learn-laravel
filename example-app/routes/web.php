@@ -36,7 +36,12 @@ Route::get('User/{id}/edit', [App\Http\Controllers\UserController::class, 'updat
 
 Route::post('/update', [App\Http\Controllers\UserController::class, 'update'])->name('user.update');
 
-Route::get('/save-website', [App\Http\Controllers\SellerController::class, 'saveWebsite'])->name('save.website');
-
+Route::post('/save-website', [App\Http\Controllers\SellerController::class, 'saveWebsite'])->name('save.website');
 
 Route::get('/add-website', [App\Http\Controllers\SellerController::class, 'formtoaddwebsite'])->name('form.add.website');
+
+Route::get('/view-websites', [App\Http\Controllers\SellerController::class, 'viewWebsites'])->name('view.websites');
+
+Route::delete('website/{id}', [App\Http\Controllers\SellerController::class, 'destroy'])->name('website.destroy');
+
+Route::get('/website/{id}/edit', [App\Http\Controllers\SellerController::class, 'edit'])->name('website.edit');

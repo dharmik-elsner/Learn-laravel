@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('da_score');
             $table->integer('publishing_time');
             $table->string('example_website_name');
-            $table->json('category');
+            $table->string('category');
             $table->integer('normal_guest_price')->nullable();
             $table->integer('normal_link_price')->nullable();
             $table->integer('fc_guest_price')->nullable();
