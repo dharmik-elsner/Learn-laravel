@@ -61,6 +61,7 @@
                 <div class="card-footer">
                     <form action="/save-website" method="post" id="website-form">
                         @csrf
+                        <input type="hidden" name="id" value="@if(isset($website)){{ $website->id }}@endif">
                         <table>
                             <tr>
                                 <td>

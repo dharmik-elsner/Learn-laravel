@@ -30,6 +30,20 @@ class SellerController extends Controller
 
     public function saveWebsite(Request $request)
     {
+        if($request->input('bool')){
+            $website = sellerWebsiteData::where('id', $request->input('id'))->first();
+            $website->da_score = $request->input('da_score');
+            $website->publishing_time = $request->input('publishing_time');
+            $website->example_website_name = $request->input('example_website_name');
+            $website->category = $request->input('category');
+            $website->normal_guest_price = $request->input('normal_guest');
+            $website->normal_link_price = $request->input('normal_link');
+            $website->fc_guest_price = $request->input('fc_guest');
+            $website->fc_link_price = $request->input('fc_link');
+            $website->save();
+            return redirect()->route('view.websites')->with('success', 'Website updated successfully.');
+
+        }
         // Validate and process the request data
         $validated = $request->validate([
             'website_name' => 'required|url',
@@ -79,7 +93,6 @@ class SellerController extends Controller
         if (!$website) {
             return redirect()->route('view.websites')->with('error', 'Website not found.');
         }
-
         return view('addwebsite', compact('website'));
     }
 
