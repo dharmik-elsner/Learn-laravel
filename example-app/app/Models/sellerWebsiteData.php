@@ -22,6 +22,8 @@ class sellerWebsiteData extends Model
         'fc_link_price',
     ];
 
+    
+
     public function setCategoryAttribute($value)
     {
         $this->attributes['category'] = is_array($value) ? implode(',', $value) : $value;

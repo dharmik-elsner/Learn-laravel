@@ -1,7 +1,7 @@
 <div id="sidebar">
     <ul>
         <li><a href="{{ route('home') }}">🏠 Home</a></li>
-        <li><a href="{{ route('view.websites') }}">Dashboard to maintain website data</a></li>
+        <li><a href="{{ route('seller.index') }}">Dashboard to maintain website data</a></li>
         <li><a href="{{ route('form.add.website') }}">Selling Website form</a></li>
         @if(Auth::check() && Auth::user()->role === 'Seller')
             <li><a href="#">⚙️ Seller Panel</a></li>
